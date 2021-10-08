@@ -6,16 +6,18 @@ import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
 
 import NewsletterForm from '@/components/NewsletterForm'
+import getTest from './api/test'
 
 const MAX_DISPLAY = 5
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter('blog')
+  const test = await getTest();
 
-  return { props: { posts }, revalidate: 60 }
+  return { props: { posts, test }, revalidate: 60 }
 }
 
-export default function Home({ posts }) {
+export default function Home({ posts, test }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
