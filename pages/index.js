@@ -6,13 +6,15 @@ import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
 
 import NewsletterForm from '@/components/NewsletterForm'
-import getTest from './api/test'
 
 const MAX_DISPLAY = 5
 
+const fetcher = (url) => fetch(url).then((res) => res.json())
+const API = 'https://api.github.com/repos/vercel/swr'
+
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter('blog')
-  const test = await getTest()
+  const test = await fetcher(API)
 
   return { props: { posts, test }, revalidate: 60 }
 }
